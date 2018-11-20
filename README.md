@@ -26,7 +26,7 @@ Exploit workflow:
     * elevate privileges
     * exploit
 
-[Img]()
+[Img](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/exploit_work_flow.png)
     
 In this tutorial, I'm not going to do any exploitation/anything illegal. Instead, I would like to focus on the analysis part.
 On any given set up the dataset, the analysis is a prerequisite, for formulating a valid hypothesis and providing answers.
