@@ -104,7 +104,49 @@ For this, we use [aircrack-ng]('https://www.aircrack-ng.org/'), a complete suite
     -rw-r--r-- 1 root root  4081 Nov 21 05:28 elastic_wd-02.cap
    ```
 
+### Install elasticsearch
 
-    
-    
-    
+Elasticsearch is a Java application, so you'll need to install a recent version OpenJDK.
+
+```
+apt-get install default-jdk
+```
+
+Add elasticsearch key and install version 6
+
+```
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | apt-key add -
+apt-get install apt-transport-https
+echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" |  tee -a /etc/apt/sources.list.d/elastic-6.x.list
+apt-get update &&  apt-get install elasticsearch
+```
+
+We need to edit elasticsearch config file so we can access it from the host. This means we need to allow HTTP traffic on port 9200.
+
+```
+nano /etc/elasticsearch/elasticsearch.yml
+Change network.host to 0.0.0.0 and host.http: 9200
+```
+
+### Post installation adjustments
+
+We need to edit elasticsearch config file so we can access it from the host, which means we need to allow HTTP traffic on port 9200.
+
+Elasticsearch stores it's data into inverted indexes distributed across many shards. A shard holds just a subset of the `dataset.`
+By default, `Elastic` uses 5 shards and 1 replica, and this means that for every shard there is a `backup,` and we don't need this.
+As this is not a production environment and we want to demonstrate the functionality we setup `1 shard` and `0 replicas`.
+
+!['Img'](https://github.com/mpruna/IMPORTING_DATA_INTO_ELASTICSEARCH/blob/master/images/inverted_index.png)
+
+There is not a distributed system and we have only 1 node. Also by default `elastic` stores it's data on `/var/lib` partition and tipically that parition is small. We specify media path in the `/home` directory.
+
+#action.destructive_requires_name: true
+#Shards
+index.number_of_shards: 1
+index.number_of_replicas: 0
+
+#Node setup
+node.data: false
+
+#Sepcify a different data path:
+path.data: /home/media/
