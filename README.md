@@ -121,16 +121,14 @@ echo "deb https://artifacts.elastic.co/packages/6.x/apt stable main" |  tee -a /
 apt-get update &&  apt-get install elasticsearch
 ```
 
-We need to edit elasticsearch config file so we can access it from the host. This means we need to allow HTTP traffic on port 9200.
+### Post installation adjustments
+
+We need to edit elasticsearch config file so we can access it from the host, which means we need to allow HTTP traffic on port 9200.
 
 ```
 nano /etc/elasticsearch/elasticsearch.yml
 Change network.host to 0.0.0.0 and host.http: 9200
 ```
-
-### Post installation adjustments
-
-We need to edit elasticsearch config file so we can access it from the host, which means we need to allow HTTP traffic on port 9200.
 
 Elasticsearch stores it's data into inverted indexes distributed across many shards. A shard holds just a subset of the `dataset.`
 By default, `Elastic` uses 5 shards and 1 replica, and this means that for every shard there is a `backup,` and we don't need this.
@@ -140,6 +138,7 @@ As this is not a production environment and we want to demonstrate the functiona
 
 There is not a distributed system and we have only 1 node. Also by default `elastic` stores it's data on `/var/lib` partition and tipically that parition is small. We specify media path in the `/home` directory.
 
+```
 #action.destructive_requires_name: true
 #Shards
 index.number_of_shards: 1
@@ -150,3 +149,76 @@ node.data: false
 
 #Sepcify a different data path:
 path.data: /home/media/
+```
+
+Starting with Elasticsearch -v6 `Content-Type` header is required in `REST-API` requests. Instead of specifying this implicitly every time we interact with elasticsearch using `curl,` we set up a script which makes this behavior default. 
+We also need to make it part of the system variables, so it's persistent across reboots:
+
+```
+mkdir bin
+cd bin
+#!/bin/bash
+/home/bin/curl  -s -H "Content-Type: application/json" "$@"
+chmod a+x curl
+```
+Export `curl` to enviroment `PATH`
+
+```
+export PATH=:"/home/bin/:$PATH"
+/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+```
+
+### Import data into Elasticsearch using python
+
+Elasticsearch has ['client libraries'](https://www.elastic.co/guide/en/elasticsearch/client/index.html) available for below languages:
+    
+    * Java API
+    * JavaScript API
+    * Groovy API 
+    * .NET API
+    * PHP API
+    * Perl API
+    * Python API
+    * Ruby API
+
+First we install Python package manager `pip` then using `pip` we install `elasticsearch-python` client.
+
+```
+apt-get install python3-pip
+pip3 install elasticsearch
+```
+
+With the script below we import wifi data into elasticsearch:
+
+```
+import csv
+from collections import deque
+import elasticsearch
+from elasticsearch import helpers
+
+# Above imported necessary python moduels
+
+# Function below converts a .csv file into json 
+
+def json_converter():
+    with open("elastic_wardrive-01.kismet.csv", "r") as csv_file:
+        csv_reader = csv.reader(csv_file, delimiter=';')
+        next(csv_reader)
+        for line in csv_reader:
+            wifi = {}
+            wifi['Network'] = int(line[0])
+            wifi['NetType'] = str(line[1])
+            wifi['ESSID'] = str(line[2])
+            wifi['BSSID'] = str(line[3])
+            wifi['Channel'] = int(line[5])
+            wifi['Encryption'] = str(line[7])
+            wifi['MaxRate'] = float(line[9])
+            yield wifi
+
+# bulk import into elasticsearch
+es = elasticsearch.Elasticsearch()
+es.indices.delete(index="wifis",ignore=404)
+deque(helpers.parallel_bulk(es,json_converter(),index="wifis",doc_type="wifi",chunk_size=350),maxlen=0)
+es.indices.refresh()
+```
+
