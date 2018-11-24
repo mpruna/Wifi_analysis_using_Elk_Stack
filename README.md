@@ -290,3 +290,29 @@ Channel | Channel number (taken from beacon packets).
 ESSID |  Shows the wireless network name. The so-called “SSID”, which can be empty if SSID hiding is activated
 Encryption | Encryption algorithm in use. OPN = no encryption,“WEP?” = WEP or higher (not enough data to choose between WEP and WPA/WPA2), WEP (without the question mark) indicates static or dynamic WEP, and WPA or WPA2 if TKIP or CCMP is present.
 BSSID | MAC address of an Access Point
+
+### Install Kibana
+
+[Kibana]('https://www.elastic.co/products/kibana') it's elasticsearch Web UI. 
+Working with the `linux` shell might not be the best thing for a nont technical individuals. A lot of the times you need to provide the same information for other staff/company members and this is why we will install it. Kibana provides enhanced visualization capabilities as as an API builder.
+
+
+```
+apt-get update && apt-get install kibana
+```
+
+Setup http access:
+```
+server.port: 5601
+server.host : 0.0.0.0
+```
+
+Allow http host access:
+
+```
+VBoxManage modifyvm "Elastic_Stack" --natpf1 "host2guest-kibana_http,tcp,,5601,,5601"
+```
+
+
+
+
