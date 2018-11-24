@@ -7,6 +7,7 @@ Now it's time to put my knowledge into practice and do an analysis of the wifi a
 
 Kali Linux is a  Debian based distribution that with software used mainly in penetration testing.
 For example, Kali has specialized software for:
+
     * Information Gathering
     * Vulnerability Assesment
     * Web Application Analysis
@@ -33,7 +34,7 @@ On any given set up the dataset, the analysis is a prerequisite, for formulating
 After data cleanup(removal, wrangle missing data, feature engineering), data analysis is vital. Next logical step would be to choose a proper modeling algorithm and provide some answers based on that model.
 
 
-Wardriving is the act of searching for Wi-Fi wireless networks by a person usually in a moving vehicle, using a laptop or smartphone. Software for wardriving is freely available on the Internet.[Ref](https://en.wikipedia.org/wiki/Wardriving)
+Wardriving is the act of searching for Wi-Fi wireless networks by a person usually in a moving vehicle, using a laptop or smartphone. Software for wardriving is freely available on the [Link](https://en.wikipedia.org/wiki/Wardriving)
 For this, we use [aircrack-ng]('https://www.aircrack-ng.org/'), a complete suite of tools to assess WiFi network security capable of:
 
     * Monitoring: Packet capture and export of data to text files for further processing by third-party tools
@@ -222,3 +223,70 @@ deque(helpers.parallel_bulk(es,json_converter(),index="wifis",doc_type="wifi",ch
 es.indices.refresh()
 ```
 
+#### Importing and validate import
+
+```
+python3 convert_csv_to_json.py
+curl -XGET 127.0.0.1:9200/_cat/indices?pretty
+yellow open wifis nVoj-Bz4RUqBUyAHW24IzA 5 1 12 0 32.9kb 32.9kb
+```
+
+Check the number of records imported:
+
+```
+curl -XGET 127.0.0.1:9200/wifis/_count?pretty
+{
+  "count" : 12,
+  "_shards" : {
+    "total" : 5,
+    "successful" : 5,
+    "skipped" : 0,
+    "failed" : 0
+  }
+}
+```
+
+At the moment there are 12 records and let's check how an individual record looks like:
+```
+curl -XGET '127.0.0.1:9200/wifis/wifi/_search?size=1&pretty'
+{
+  "took" : 9,
+  "timed_out" : false,
+  "_shards" : {
+    "total" : 5,
+    "successful" : 5,
+    "skipped" : 0,
+    "failed" : 0
+  },
+  "hits" : {
+    "total" : 12,
+    "max_score" : 1.0,
+    "hits" : [
+      {
+        "_index" : "wifis",
+        "_type" : "wifi",
+        "_id" : "LMJIRWcBVI9TSF7GxFfF",
+        "_score" : 1.0,
+        "_source" : {
+          "Network" : 10,
+          "Channel" : 9,
+          "MaxRate" : 270.0,
+          "ESSID" : "Netis 12",
+          "Encryption" : "WPA2,AES-CCM,TKIP",
+          "NetType" : "infrastructure",
+          "BSSID" : "04:8D:38:7E:C4:40"
+        }
+      }
+    ]
+  }
+}
+```
+
+Index explanation
+
+Column | Description
+-|-
+Channel | Channel number (taken from beacon packets).
+ESSID |  Shows the wireless network name. The so-called “SSID”, which can be empty if SSID hiding is activated
+Encryption | Encryption algorithm in use. OPN = no encryption,“WEP?” = WEP or higher (not enough data to choose between WEP and WPA/WPA2), WEP (without the question mark) indicates static or dynamic WEP, and WPA or WPA2 if TKIP or CCMP is present.
+BSSID | MAC address of an Access Point
