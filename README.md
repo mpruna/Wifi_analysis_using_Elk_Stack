@@ -48,9 +48,6 @@ For this, we use [aircrack-ng]('https://www.aircrack-ng.org/'), a complete suite
     
     ```
     Bus 001 Device 005: ID 148f:3070 Ralink Technology, Corp. RT2870/RT3070 Wireless Adapter
-    ```
-    
-    ```
     ip addr | grep wlan0
     3: wlan0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UP group default qlen 1000
     inet 192.168.1.12/24 brd 192.168.1.255 scope global dynamic noprefixroute wlan0
@@ -228,15 +225,16 @@ es.indices.refresh()
 ```
 python3 convert_csv_to_json.py
 curl -XGET 127.0.0.1:9200/_cat/indices?pretty
-yellow open wifis nVoj-Bz4RUqBUyAHW24IzA 5 1 12 0 32.9kb 32.9kb
+green  open .kibana_1 OwOU0o4cTU-taduRA5b_og 1 0    4 0  20.6kb  20.6kb
+yellow open wardrive  CGLIdGQXQNCpMr1FB-CIIw 5 1 5075 0 980.2kb 980.2kb
 ```
 
 Check the number of records imported:
 
 ```
-curl -XGET 127.0.0.1:9200/wifis/_count?pretty
+curl -XGET 127.0.0.1:9200/wardrive/_count?pretty
 {
-  "count" : 12,
+  "count" : 5075,
   "_shards" : {
     "total" : 5,
     "successful" : 5,
@@ -246,11 +244,11 @@ curl -XGET 127.0.0.1:9200/wifis/_count?pretty
 }
 ```
 
-At the moment there are 12 records and let's check how an individual record looks like:
+At the moment there are 5075 records and let's check how an individual record looks like:
 ```
-curl -XGET '127.0.0.1:9200/wifis/wifi/_search?size=1&pretty'
+curl -XGET '127.0.0.1:9200/wardrive/wifi/_search?size=1&pretty'
 {
-  "took" : 9,
+  "took" : 20,
   "timed_out" : false,
   "_shards" : {
     "total" : 5,
@@ -259,22 +257,22 @@ curl -XGET '127.0.0.1:9200/wifis/wifi/_search?size=1&pretty'
     "failed" : 0
   },
   "hits" : {
-    "total" : 12,
+    "total" : 5075,
     "max_score" : 1.0,
     "hits" : [
       {
-        "_index" : "wifis",
+        "_index" : "wardrive",
         "_type" : "wifi",
-        "_id" : "LMJIRWcBVI9TSF7GxFfF",
+        "_id" : "NZr-T2cBJGzqhtzfIGxH",
         "_score" : 1.0,
         "_source" : {
-          "Network" : 10,
-          "Channel" : 9,
-          "MaxRate" : 270.0,
-          "ESSID" : "Netis 12",
-          "Encryption" : "WPA2,AES-CCM,TKIP",
+          "Network" : 4,
           "NetType" : "infrastructure",
-          "BSSID" : "04:8D:38:7E:C4:40"
+          "ESSID" : "Netis 14 Spalatorie",
+          "BSSID" : "04:8D:38:7E:C4:37",
+          "Channel" : 9,
+          "Encryption" : "WPA2,AES-CCM,TKIP",
+          "MaxRate" : 270.0
         }
       }
     ]
@@ -290,6 +288,78 @@ Channel | Channel number (taken from beacon packets).
 ESSID |  Shows the wireless network name. The so-called “SSID”, which can be empty if SSID hiding is activated
 Encryption | Encryption algorithm in use. OPN = no encryption,“WEP?” = WEP or higher (not enough data to choose between WEP and WPA/WPA2), WEP (without the question mark) indicates static or dynamic WEP, and WPA or WPA2 if TKIP or CCMP is present.
 BSSID | MAC address of an Access Point
+
+
+Check the number of access points with `NO Encription`/`WEP`/`WPA`
+
+NO Encryption
+
+```
+curl -XGET 127.0.0.1:9200/wardrive/wifi/_count?pretty -d'
+{
+"query":{
+"match":{
+"Encryption":"OPN,None"
+}
+}
+}'
+{
+  "count" : 206,
+  "_shards" : {
+    "total" : 5,
+    "successful" : 5,
+    "skipped" : 0,
+    "failed" : 0
+  }
+}
+```
+
+WPA2
+
+```
+curl -XGET 127.0.0.1:9200/wardrive/wifi/_count?pretty -d'
+{
+"query":{
+"match":{
+"Encryption":"WPA2"
+}
+}
+}'
+{
+  "count" : 4744,
+  "_shards" : {
+    "total" : 5,
+    "successful" : 5,
+    "skipped" : 0,
+    "failed" : 0
+  }
+}
+
+```
+
+WEP
+
+curl -XGET 127.0.0.1:9200/wardrive/wifi/_count?pretty -d'
+
+```
+{
+"query":{
+"match":{
+"Encryption":"WEP"
+}
+}
+}'
+{
+  "count" : 27,
+  "_shards" : {
+    "total" : 5,
+    "successful" : 5,
+    "skipped" : 0,
+    "failed" : 0
+  }
+}
+```
+
 
 ### Install Kibana
 
@@ -313,6 +383,22 @@ Allow http host access:
 VBoxManage modifyvm "Elastic_Stack" --natpf1 "host2guest-kibana_http,tcp,,5601,,5601"
 ```
 
+Setup and deamonize Kibana service:
 
+```
+/bin/systemctl daemon-reload
+/bin/systemctl enable kibana.service
+/bin/systemctl start kibana.service
+```
 
+Let's check if we can access Kibana UI by accessing our localhot:5601 in the web brawser.
 
+[Img]('https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/Kibana_UI.png')
+
+Bar chart
+
+[Img]('https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/bar_chart.png')
+
+Pie chart
+
+[Img]('https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/Encyption_pie.png')
