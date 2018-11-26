@@ -393,12 +393,12 @@ Setup and deamonize Kibana service:
 
 Let's check if we can access Kibana UI by accessing our localhot:5601 in the web brawser.
 
-[Img](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/Kibana_UI.png)
+![Img](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/Kibana_UI.png)
 
 Bar chart
 
-[Img](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/bar_chart.png)
+![Img](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/bar_chart.png)
 
 Pie chart
 
-[Img](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/Encyption_pie.png)
+![Img](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/Encyption_pie.png)
