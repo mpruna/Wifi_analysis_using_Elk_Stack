@@ -160,11 +160,14 @@ cd bin
 /home/bin/curl  -s -H "Content-Type: application/json" "$@"
 chmod a+x curl
 ```
-Export `curl` to enviroment `PATH`
+Export `curl` to environment `PATH` and also make the `curl` script part of `.bashrc`,`.profile` files so it will be persistent across reboots.
 
 ```
 export PATH=:"/home/bin/:$PATH"
-/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+echo $PATH
+/home/bin/:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+echo "export PATH="/home/bin/:$PATH"" >.bashrc
+echo "export PATH="/home/bin/:$PATH"" >.profile
 ```
 
 ### Import data into `elasticsearch` using python
@@ -180,26 +183,36 @@ export PATH=:"/home/bin/:$PATH"
     * Python API
     * Ruby API
 
-First we install Python package manager `pip` then using `pip` we install elasticsearch-python client.
+First we install Python package manager `pip` then using `pip` we install `elasticsearch-python` client.
 
 ```
 apt-get install python3-pip
 pip3 install elasticsearch
 ```
-
-With `elastic_import.ipynb` notebook we do a preliminary analysis and import data `elasticsearch`. Section below
-
-
 #### Importing and validate import
 
+With `elastic_import.ipynb` notebook we do a preliminary analysis and import data `elasticsearch`.
+
+Section below
+
 ```
-python3 convert_csv_to_json.py
+es = Elasticsearch(["127.0.0.1:9200"])
+
+es.indices.delete(index="wardrive",ignore=404)
+docs = df_short.to_dict(orient='records')
+bulk(es, docs, index='wardrive',doc_type='wifi', raise_on_error=True)
+es.indices.refresh()
+```
+
+Check index is created:
+
+```
 curl -XGET 127.0.0.1:9200/_cat/indices?pretty
 green  open .kibana_1 OwOU0o4cTU-taduRA5b_og 1 0    4 0  20.6kb  20.6kb
 yellow open wardrive  CGLIdGQXQNCpMr1FB-CIIw 5 1 5075 0 980.2kb 980.2kb
 ```
 
-Check the number of records imported:
+Check the number of records:
 
 ```
 curl -XGET 127.0.0.1:9200/wardrive/_count?pretty
@@ -214,7 +227,8 @@ curl -XGET 127.0.0.1:9200/wardrive/_count?pretty
 }
 ```
 
-At the moment there are 5075 records and let's check how an individual record looks like:
+Check how an individual record looks like. We could look at the first record by specifying `size=1` parameter in our query.
+
 ```
 curl -XGET '127.0.0.1:9200/wardrive/wifi/_search?size=1&pretty'
 {
@@ -262,7 +276,7 @@ BSSID | MAC address of an Access Point
 
 Check the number of access points with `NO Encription`/`WEP`/`WPA`
 
-NO Encryption
+NO Encryption count:
 
 ```
 curl -XGET 127.0.0.1:9200/wardrive/wifi/_count?pretty -d'
@@ -285,7 +299,7 @@ curl -XGET 127.0.0.1:9200/wardrive/wifi/_count?pretty -d'
 ```
 
 
-WPA2
+WPA2 Encryption count:
 
 ```
 curl -XGET 127.0.0.1:9200/wardrive/wifi/_count?pretty -d'
@@ -308,7 +322,7 @@ curl -XGET 127.0.0.1:9200/wardrive/wifi/_count?pretty -d'
 
 ```
 
-WEP
+WEP Encryption count:
 
 ```
 curl -XGET 127.0.0.1:9200/wardrive/wifi/_count?pretty -d'
@@ -337,26 +351,26 @@ curl -XGET 127.0.0.1:9200/wardrive/wifi/_count?pretty -d'
 ### Install Kibana
 
 [Kibana]('https://www.elastic.co/products/kibana') it's `elasticsearch` Web UI.
-Working with the `linux` shell might not be the best thing for a nont technical individuals. A lot of the times you need to provide the same information for other staff/company members and this is why we will install it. Kibana provides enhanced visualization capabilities as as an API builder.
+Working with the `linux` shell might not be the best thing for a non technical individuals. A lot of the times you need to provide the same information for other staff/company members or in a presentation.Because people are visually inclined, and because `A picture's worth a thousand words` we will install it. `Kibana` provides enhanced visualization capabilities as as an API builder.
 
 
 ```
 apt-get update && apt-get install kibana
 ```
 
-Setup http access:
+Setup HTTP access:
 ```
 server.port: 5601
 server.host : 0.0.0.0
 ```
 
-Allow http host access:
+Allow HTTP host access:
 
 ```
 VBoxManage modifyvm "Elastic_Stack" --natpf1 "host2guest-kibana_http,tcp,,5601,,5601"
 ```
 
-Setup and deamonize Kibana service:
+Setup and demonize `Kibana` service:
 
 ```
 /bin/systemctl daemon-reload
@@ -364,7 +378,7 @@ Setup and deamonize Kibana service:
 /bin/systemctl start kibana.service
 ```
 
-Let's check if we can access Kibana UI by accessing our localhot:5601 in the web brawser.
+Let's check if we can access `Kibana` UI by accessing our 127.0.0.1:5601 in the web browser.
 
 ![Img](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/Kibana_UI.png)
 
