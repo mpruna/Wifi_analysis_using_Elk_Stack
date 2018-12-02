@@ -414,3 +414,7 @@ Tag cloud creation: Click Visualize; + symbol; Pie Chart; Select Index; from Buc
 ```
 
 <a href="https://raw.githubusercontent.com/mpruna/Wifi_analysis_using_Elk_Stack/master/videos/pie_creation.mp4">Create graph</a>
+
+from IPython.display import HMTL
+
+HTML('<iframe width="560" height="315" src="https://raw.githubusercontent.com/mpruna/Wifi_analysis_using_Elk_Stack/master/videos/pie_creation.mp4" frameborder="0" allowfullscreen></iframe>')
