@@ -408,5 +408,4 @@ Tag cloud creation: Click Visualize; + symbol; Pie Chart; Select Index; from Buc
 
 <video width="320" height="240" controls>
     <source src="https://raw.githubusercontent.com/mpruna/Wifi_analysis_using_Elk_Stack/master/videos/pie_creation.mp4" type="video/mp4">
-    Your browser does not support the video tag.
 </video>
