@@ -391,7 +391,7 @@ Setup and demonize `Kibana` service:
 
 Let's check if we can access `Kibana` UI by accessing our 127.0.0.1:5601 in the web browser.
 
-![Img](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/Kibana_UI.png)
+![Img](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/kibana.png)
 
 Bar chart creation: Click Visualize; + symbol; Vertical Bar; Select Index; from Buckets(X-Axis); Select Terms; Select Field (Encryption.keyword); Order by metric(count); Size 10
 
