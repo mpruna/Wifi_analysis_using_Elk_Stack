@@ -187,15 +187,16 @@ echo "export PATH="/home/bin/:$PATH"" >.profile
     * Python API
     * Ruby API
 
-First we install Python package manager `pip` then using `pip` we install `elasticsearch-python` client.
+
+Since we use python programming language for data import, it's a good idea to install python native package manager `pip.` After this using `pip` we install `python-elsticsearch` client.
 
 ```
 apt-get install python3-pip
 pip3 install elasticsearch
 ```
-#### Importing and validate import
+#### Import and validat import
 
-With `elastic_import.ipynb` notebook we do a preliminary analysis and import data `elasticsearch`.
+With `elastic_import.ipynb`  notebook we do a preliminary analysis, and then we import data into `elasticsearch.`
 
 Section below
 
