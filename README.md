@@ -406,4 +406,4 @@ Tag cloud creation: Click Visualize; + symbol; Pie Chart; Select Index; from Buc
 ![Img](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/tag_cloud.png)
 
 
-![Video]("https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/videos/pie_creation.mp4" "Pie creation")
+![Video]("https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/videos/pie_creation.mp4")
