@@ -217,7 +217,7 @@ green  open .kibana_1 OwOU0o4cTU-taduRA5b_og 1 0    4 0  20.6kb  20.6kb
 yellow open wardrive  CGLIdGQXQNCpMr1FB-CIIw 5 1 5075 0 980.2kb 980.2kb
 ```
 
-Check the number of records:
+Determine the number of records:
 
 ```
 curl -XGET 127.0.0.1:9200/wardrive/_count?pretty
@@ -356,7 +356,13 @@ curl -XGET 127.0.0.1:9200/wardrive/wifi/_count?pretty -d'
 ### Install Kibana
 
 [Kibana]('https://www.elastic.co/products/kibana') it's `elasticsearch` Web UI.
-Working with the `linux` shell might not be the best thing for a non technical individuals. A lot of the times you need to provide the same information for other staff/company members or in a presentation.Because people are visually inclined, and because `A picture's worth a thousand words` we will install it. `Kibana` provides enhanced visualization capabilities as as an API builder.
+Working with the `linux` shell might not be the best thing for a non technical individuals. A lot of the times you need to provide the same information for other staff/company members or in a presentation.Because people are visually inclined, and because `A picture's worth a thousand words` we will install it.
+`Kibana` provides:
+  - enhanced visualization capabilities (histograms, line graphs, bar charts pie charts)
+  - API builder
+  - Machine Learning modules
+  - Log Analysis
+  - Security via `X-PACK`
 
 
 ```
@@ -387,10 +393,14 @@ Let's check if we can access `Kibana` UI by accessing our 127.0.0.1:5601 in the 
 
 ![Img](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/Kibana_UI.png)
 
-Bar chart
+Bar chart creation: Click Visualize; + symbol; Vertical Bar; Select Index; from Buckets(X-Axis); Select Terms; Select Field (Encryption.keyword); Order by metric(count); Size 10
 
 ![Img](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/bar_chart.png)
 
-Pie chart
+Pie chart creation: Click Visualize; + symbol; Pie Chart; Select Index; from Buckets(Split Slices); Select Terms; Select Field (Encryption.keyword); Order by metric(count); Size 10
 
-![Img](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/Encyption_pie.png)
+![Img](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/kibana_pie.png)
+
+Tag cloud creation: Click Visualize; + symbol; Pie Chart; Select Index; from Buckets(Tags); Select Terms; Select Field (Encryption.keyword); Order by metric(count); Size 10
+
+![Img](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/tag_cloud.png)
