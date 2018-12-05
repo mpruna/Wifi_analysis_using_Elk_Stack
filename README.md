@@ -1,7 +1,7 @@
 ### Wifi analysis using airckrack-ng and elasticsearch
 
 
-A while back I was interested in security. There is something special about being a hacker, something mysterious, something that captures your imagination, and even in Hollywood, there are a lot of movies centered around security related topics. It has that "it factor," and I ended up getting a Wireless Penetration testing certification from Offensive Security. Now it's time to put my knowledge into practice and do an analysis of the wifi access point in my City using aircrack-ng and elasticsearch.
+A while back I was interested in security. There is something special about being a hacker, something mysterious, something that captures our imagination, and even in Hollywood, there are a lot of movies centered around security related topics. It has that "it factor," and I ended up getting a Wireless Penetration testing certification from Offensive Security:`OS-BWA-02622`. Now it's time to put my knowledge into practice and do an analysis of the WiFi access point in my City using aircrack-ng and elasticsearch.
 
 Kali Linux is a Debian based distribution used mainly in penetration testing. For example, Kali has specialized software for:
 * Information Gathering
@@ -414,9 +414,3 @@ Tag cloud creation: `Click Visualize`; `+ symbol; Pie Chart`; `Select Index`; `f
 <source src="https://raw.githubusercontent.com/mpruna/Wifi_analysis_using_Elk_Stack/master/videos/pie_creation.mp4" type="video/mp4">
 </video>
 ```
-
-<a href="https://raw.githubusercontent.com/mpruna/Wifi_analysis_using_Elk_Stack/master/videos/pie_creation.mp4">Create graph</a>
-
-from IPython.display import HMTL
-
-HTML('<iframe width="560" height="315" src="https://raw.githubusercontent.com/mpruna/Wifi_analysis_using_Elk_Stack/master/videos/pie_creation.mp4" frameborder="0" allowfullscreen></iframe>')
