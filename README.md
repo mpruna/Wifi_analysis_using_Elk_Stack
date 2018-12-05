@@ -1,13 +1,15 @@
 ### Wifi analysis using airckrack-ng and elasticsearch
 
 
-A while back I was interested in security, it seemed at that point a sexy domain and let's be fair there's something special about being a hacker or at least in Hollywood there is some `it factor` about it. At that time I began experimenting with Kali Linux, and it's adjacent software, and I ended up getting a Wireless Penetration testing certification from Offensive Security. Now it's time to put my knowledge into practice and do an analysis of the WiFi access point in my City using `aircrack-ng` and `Elasticsearch`.
+A while back I was interested in security. There is something special about being a hacker, something mysterious, something that captures your imagination, and even in Hollywood, there are a lot of movies centered around security related topics. It has that "it factor," and I ended up getting a Wireless Penetration testing certification from Offensive Security. Now it's time to put my knowledge into practice and do an analysis of the wifi access point in my City using aircrack-ng and elasticsearch.
 
-Kali Linux is a Debian based distribution that with software used mainly in penetration testing. For example, Kali has specialized software for:
+Kali Linux is a Debian based distribution used mainly in penetration testing. For example, Kali has specialized software for:
 * Information Gathering
 * Vulnerability Assessment
 * Web Application Analysis
 * Wireless attacks
+* Web Application Exploit
+* Database Exploit
 
 
 Kali version:
@@ -18,22 +20,22 @@ Kali version:
 
 Exploit workflow:
 
-    scanning (in this phase we get as much useful information as possible on the target)
-    vulnerability assessment(check out which would be the best way to gain access to the host)
-    get access
-    elevate privileges
-    exploit
+    Scanning (in this phase we get as much useful information as possible on the target)
+    vulnerability Assessment(check out which would be the best way to gain access to the host)
+    Get Access
+    Elevate Privileges
+    Exploit
 
 ![Img](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/exploit_work_flow.png)
 
-In this tutorial, I perform a quantitative access point analysis using Python, Elasticsearch, and aircrack-ng.
+In this tutorial, we perform a quantitative access point analysis using Python, Elasticsearch, and `aircrack-ng`.
 
 Workflow:
 
-    gather the data
-    wrangle the data if needed
-    upload the data into elasticsearch
-    analyze the data
+    Gather the data
+    Wrangle the data, if needed
+    Upload the data into elasticsearch
+    Analyze the data
 
 
 ### Gathering WiFi data
