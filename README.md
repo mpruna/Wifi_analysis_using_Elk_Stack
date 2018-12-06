@@ -421,8 +421,7 @@ Tag cloud creation: `Click Visualize`; `+ symbol; Pie Chart`; `Select Index`; `f
 ```
 
 <video width="320" height="240" controls>
- <source src="movie.mp4" type="video/mp4">
-
+ <source src="pie_creation.mp4" type="video/mp4">
 </video>
 
 #### Dashboards:
