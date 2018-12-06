@@ -284,7 +284,7 @@ BSSID | MAC address of an Access Point
 
 [Channel_Wiki](https://en.wikipedia.org/wiki/List_of_WLAN_channels)
 The 802.11 standard provides several distinct radio frequencies ranges for use in Wi-FI communications. Each channel has 22MHz around the central frequency.
-![IMG](ttps://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/channel_distribution.png)
+![IMG](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/channel_distribution.png)
 
 Check the number of access points with `NO Encription`/`WEP`/`WPA`
 
@@ -420,7 +420,7 @@ Tag cloud creation: `Click Visualize`; `+ symbol; Pie Chart`; `Select Index`; `f
 </video>
 ```
 
-##### Dashboard creation:
+#### Dashboards:
 
 We can create dashboards, but we need to tag the charts we cant to use. When we save visualization we are asked to give it a name. We can then use this name as a tag in the dashboard builder.
 
