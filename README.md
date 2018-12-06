@@ -414,3 +414,15 @@ Tag cloud creation: `Click Visualize`; `+ symbol; Pie Chart`; `Select Index`; `f
 <source src="https://raw.githubusercontent.com/mpruna/Wifi_analysis_using_Elk_Stack/master/videos/pie_creation.mp4" type="video/mp4">
 </video>
 ```
+
+##### Dashboard creation:
+
+We can create dashboards, but we need to tag the charts we cant to use. When we save visualization we are asked to give it a name. We can then use this name as a tag in the dashboard builder.
+
+Dashboard creation: `Click Dashboard`; `Create new dashboard`;`Click Add`:`From add panel(Under title) add predefined visualization`;`Add`:`Save`
+
+dashboards
+
+![IMG](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/dashboard.png)
+
+![IMG](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/dashboard2.png)
