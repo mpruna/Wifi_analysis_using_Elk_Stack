@@ -275,11 +275,16 @@ Index explanation
 
 Column | Description
 -|-
+MaxRate  |  Rate: AP/client transmission speeds; MaxRate is the best transmission seen
+NetType  |  infrastructure mode are generally created by Wi-Fi routers, while ad-hoc networks are usually short-lived networks created by a laptop or other device
 Channel | Channel number (taken from beacon packets).
 ESSID |  Shows the wireless network name. The so-called “SSID”, which can be empty if SSID hiding is activated
 Encryption | Encryption algorithm in use. OPN = no encryption,“WEP?” = WEP or higher (not enough data to choose between WEP and WPA/WPA2), WEP (without the question mark) indicates static or dynamic WEP, and WPA or WPA2 if TKIP or CCMP is present.
 BSSID | MAC address of an Access Point
 
+[Channel_Wiki](https://en.wikipedia.org/wiki/List_of_WLAN_channels)
+The 802.11 standard provides several distinct radio frequencies ranges for use in Wi-FI communications. Each channel has 22MHz around the central frequency.
+![IMG](ttps://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/channel_distribution.png)
 
 Check the number of access points with `NO Encription`/`WEP`/`WPA`
 
@@ -421,7 +426,7 @@ We can create dashboards, but we need to tag the charts we cant to use. When we 
 
 Dashboard creation: `Click Dashboard`; `Create new dashboard`;`Click Add`:`From add panel(Under title) add predefined visualization`;`Add`:`Save`
 
-dashboards
+Dashboards
 
 ![IMG](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/dashboard.png)
 
