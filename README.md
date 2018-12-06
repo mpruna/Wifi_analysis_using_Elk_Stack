@@ -420,6 +420,11 @@ Tag cloud creation: `Click Visualize`; `+ symbol; Pie Chart`; `Select Index`; `f
 </video>
 ```
 
+<video width="320" height="240" controls>
+ <source src="movie.mp4" type="video/mp4">
+
+</video>
+
 #### Dashboards:
 
 We can create dashboards, but we need to tag the charts we cant to use. When we save visualization we are asked to give it a name. We can then use this name as a tag in the dashboard builder.
