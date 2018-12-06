@@ -412,8 +412,6 @@ Tag cloud creation: `Click Visualize`; `+ symbol; Pie Chart`; `Select Index`; `f
 
 ![Img](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/tag_cloud.png)
 
-<video id="sampleMovie" src="https://raw.githubusercontent.com/mpruna/Wifi_analysis_using_Elk_Stack/master/videos/pie_creation.mp4" width=”640” height=”360”></video>
-
 
 <video width="320" height="240" controls>
     <source src="pie_creation.mp4" type="video/mp4">
