@@ -428,9 +428,12 @@ Dashboards
 
 Resources:
 
-[Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-14-04)
-[Milan Gabor - Creative hackers way to use ELK
-stack](https://www.youtube.com/watch?v=eQTLKt6GgoA)
-[Elk for Hackers](https://www.viris.si/2016/01/elk-stack-for-hackers/?lang=en)
-[Elasticsearch official docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
-[Elasticsearch in depth and hands on](https://www.udemy.com/elasticsearch-6-and-elastic-stack-in-depth-and-hands-on/?couponCode=ELASTIC19)
+  [Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-14-04)
+
+  [Milan Gabor - Creative hackers way to use ELKstack](https://www.youtube.com/watch?v=eQTLKt6GgoA)
+
+  [Elk for Hackers](https://www.viris.si/2016/01/elk-stack-for-hackers/?lang=en)
+
+  [Elasticsearch official docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
+
+  [Elasticsearch in depth and hands on](https://www.udemy.com/elasticsearch-6-and-elastic-stack-in-depth-and-hands-on/?couponCode=ELASTIC19)
