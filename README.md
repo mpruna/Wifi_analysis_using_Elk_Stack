@@ -413,10 +413,6 @@ Tag cloud creation: `Click Visualize`; `+ symbol; Pie Chart`; `Select Index`; `f
 ![Img](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/tag_cloud.png)
 
 
-<video width="320" height="240" controls>
-    <source src="pie_creation.mp4" type="video/mp4">
-</video>
-
 #### Dashboards:
 
 We can create dashboards, but we need to tag the charts we cant to use. When we save visualization we are asked to give it a name. We can then use this name as a tag in the dashboard builder.
@@ -428,3 +424,13 @@ Dashboards
 ![IMG](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/dashboard.png)
 
 ![IMG](https://github.com/mpruna/Wifi_analysis_using_Elk_Stack/blob/master/images/dashboard2.png)
+
+
+Resources:
+
+[Digital Ocean](https://www.digitalocean.com/community/tutorials/how-to-install-elasticsearch-logstash-and-kibana-elk-stack-on-ubuntu-14-04)
+[Milan Gabor - Creative hackers way to use ELK
+stack](https://www.youtube.com/watch?v=eQTLKt6GgoA)
+[Elk for Hackers](https://www.viris.si/2016/01/elk-stack-for-hackers/?lang=en)
+[Elasticsearch official docs](https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html)
+[Elasticsearch in depth and hands on](https://www.udemy.com/elasticsearch-6-and-elastic-stack-in-depth-and-hands-on/?couponCode=ELASTIC19)
